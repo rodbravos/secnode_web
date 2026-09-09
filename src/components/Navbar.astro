@@ -1,10 +1,68 @@
 ---
+const links = [
+    { href: '/', text: 'Inicio' },
+    { href: '/servicios', text: 'Servicios' },
+    { href: '/soluciones', text: 'Soluciones' },
+    { href: '/contacto', text: 'Contacto' },
+];
+
+const currentPath = Astro.url.pathname;
+// console.log(currentPath===links.href);
 
 ---
 
-<nav>
-    <a href="/">Inicio</a>
-    <a href="/servicios">Servicios</a>
-    <a href="/soluciones">Soluciones</a>
-    <a href="/contacto">Contacto</a>
-</nav>
+
+<header class="fixed top-0 w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-brand-border/50">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3">
+            <svg class="w-9 h-9" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00E5FF"></stop>
+                        <stop offset="100%" stop-color="#0066FF"></stop>
+                    </linearGradient>
+                </defs>
+                <path d="M50 10 L85 25 V50 C85 70 50 90 50 90 C50 90 15 70 15 50 V25 L50 10Z" stroke="url(#brandGrad)" stroke-width="7" stroke-linejoin="round" fill="none"></path>
+                <path d="M35 65 V35 L65 65 V35" stroke="url(#brandGrad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M25 75 L75 25 M75 25 H60 M75 25 V40" stroke="url(#brandGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            
+            <span class="text-xl font-bold tracking-wider text-white">
+                <span class="text-brand-cyan">SEC</span>NODE
+            </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+
+        {
+            links.map( ({ href, text}) => (
+                <div>
+                    <a 
+                        href={ href } 
+                        class="hover:text-brand-cyan transition-colors"
+                    >
+                        { text }
+                    </a>
+                    { currentPath === href ? (
+                        <div
+                            transition:name="menu-line"
+                            class="border-b-2 border-blue-500"
+                        />
+                    ) : (
+                        <div
+                            class="border-b-2 border-transparent"
+                        />
+                    )}
+                </div>
+            ))
+        }
+
+        </nav>
+
+        <div class="hidden md:block">
+            <a href="#contacto" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-gradient-brand text-brand-dark hover:opacity-90 transition-all glow-effect">
+                Agendar Asesoría
+            </a>
+        </div>
+    </div>
+</header>
