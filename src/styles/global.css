@@ -1,1 +1,89 @@
 @import "tailwindcss";
+
+/* 1. Montserrat (Fuente Variable Única) */
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat/static/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat/static/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Roboto Regular */
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 3. Roboto SemiCondensed */
+@font-face {
+  font-family: "Roboto SemiCondensed";
+  src: url("/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 87.5%;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 4. Roboto Condensed */
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75%;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Colores de marca */
+  --color-brand-cyan: #00e5ff;
+  --color-brand-blue: #0066ff;
+  --color-brand-dark: #0a192f;
+  --color-brand-midnight: #0f203c;
+  --color-brand-surface: #112240;
+  --color-brand-border: #233554;
+
+  /* Configuración de fuentes (Clases para Tailwind) */
+  --font-sans: "Montserrat", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-roboto-semi: "Roboto SemiCondensed", sans-serif;
+  --font-roboto-cond: "Roboto Condensed", sans-serif;
+}
+
+/* Tus estilos personalizados originales */
+.text-gradient {
+  background: linear-gradient(135deg, #00e5ff 0%, #0066ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, #00e5ff 0%, #0066ff 100%);
+}
+
+.glow-effect {
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+}
