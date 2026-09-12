@@ -72,6 +72,10 @@
   --font-roboto-cond: "Roboto Condensed", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Tus estilos personalizados originales */
 .text-gradient {
   background: linear-gradient(135deg, #00e5ff 0%, #0066ff 100%);
