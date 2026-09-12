@@ -1,19 +1,16 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const links = [
-    { href: '/', text: 'Inicio' },
-    { href: '/servicios', text: 'Servicios' },
-    { href: '/soluciones', text: 'Soluciones' },
-    { href: '/contacto', text: 'Contacto' },
+    { href: '#inicio', text: 'Inicio' },
+    { href: '#servicios', text: 'Servicios' },
+    { href: '#soluciones', text: 'Soluciones' },
+    { href: '#contacto', text: 'Contacto' },
 ];
-
-const currentPath = Astro.url.pathname;
-// console.log(currentPath===links.href);
-
 ---
 
-
-<header class="fixed top-0 w-full z-50 bg-brand-dark/80 backdrop-blur-md border-gradient-bottom shadow-[0_4px_25px_rgba(0,229,255,0.15)]">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<header class="fixed top-0 left-0 right-0 z-50 bg-brand-dark/80 backdrop-blur-md border-b border-brand-border/40">
+    <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <!-- LOGO -->
         <a href="/" class="flex items-center gap-3">
             <svg class="w-9 h-9" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,100 +30,152 @@ const currentPath = Astro.url.pathname;
             </span>
         </a>
 
-        <!-- NAVEGACIÓN DESKTOP -->
-        <nav class="hidden md:flex items-center gap-8 text-base font-medium">
-        {
-            links.map( ({ href, text}) => (
-                <div>
-                    <a 
-                        href={ href } 
-                        class="text-slate-200 hover:text-brand-cyan transition-colors"
-                    >
-                        { text }
-                    </a>
-                    { currentPath === href ? (
-                        <div
-                            transition:name="menu-line"
-                            class="border-b-2 border-blue-500 mt-1"
-                        />
-                    ) : (
-                        <div
-                            class="border-b-2 border-transparent mt-1"
-                        />
-                    )}
-                </div>
-            ))
-        }
-        </nav>
-
-        <!-- CTA DESKTOP -->
-        <div class="hidden md:block">
-            <a href="#contacto" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-cyan-400 text-slate-900 hover:bg-cyan-200 transition-all glow-effect">
-                Agendar Asesoría
-            </a>
+        <!-- Enlaces Desktop -->
+        <div class="hidden md:flex items-center gap-8">
+            {links.map((link) => (
+                <a 
+                    href={link.href} 
+                    class="nav-link py-1 text-sm font-medium text-slate-300 hover:text-white transition-all border-b-2 border-transparent"
+                >
+                    {link.text}
+                </a>
+            ))}
         </div>
 
-        <!-- BOTÓN HAMBURGUESA MOBILE -->
-        <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-slate-200 hover:text-brand-cyan focus:outline-none transition-colors" aria-label="Abrir menú">
-            <svg id="icon-open" class="w-7 h-7 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-    </div>
+        <div class="flex items-center gap-4">
+            <a href="#contacto" class="hidden sm:inline-flex px-5 py-2 rounded-lg text-sm font-semibold border border-brand-cyan/30 text-brand-cyan hover:bg-brand-cyan/10 transition-all shadow-lg shadow-cyan-400/10">
+                Agenda una asesoría
+            </a>
 
-    <!-- MENÚ MOBILE DESPLEGABLE -->
-    <div id="mobile-menu" class="hidden md:hidden bg-brand-dark/95 backdrop-blur-xl border-b border-brand-border/50 shadow-2xl">
-        <nav class="flex flex-col px-6 py-6 space-y-4">
-            {
-                links.map( ({ href, text}) => (
-                    <a 
-                        href={ href } 
-                        class={`text-lg font-medium pb-2 border-b border-slate-800 ${currentPath === href ? 'text-brand-cyan' : 'text-slate-200 hover:text-brand-cyan'}`}
-                    >
-                        { text }
-                    </a>
-                ))
-            }
-            <div class="pt-4">
-                <a href="#contacto" class="block w-full text-center px-5 py-3 rounded-lg text-base font-semibold bg-cyan-400 text-slate-900 hover:bg-cyan-200 transition-all glow-effect">
-                    Agendar Asesoría
-                </a>
-            </div>
-        </nav>
+            <!-- Botón Hamburguesa (Visible en móviles) -->
+            <button 
+                id="menu-btn"
+                aria-label="Toggle menu" 
+                class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none flex flex-col justify-center items-center w-9 h-9 gap-[5px]"
+            >
+                <span class="w-6 h-[2px] bg-current rounded-full transition-all duration-300 ease-in-out bar-top"></span>
+                <span class="w-6 h-[2px] bg-current rounded-full transition-all duration-300 ease-in-out bar-mid"></span>
+                <span class="w-6 h-[2px] bg-current rounded-full transition-all duration-300 ease-in-out bar-bot"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menú Desplegable Móvil -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-dark/95 border-b border-brand-border/40 px-6 py-6 space-y-4">
+        {links.map((link) => (
+            <a 
+                href={link.href} 
+                class="nav-link block text-base font-medium text-slate-300 hover:text-brand-cyan transition-colors"
+            >
+                {link.text}
+            </a>
+        ))}
+        
+        <!-- Botón CTA con estilo sólido y clase aislada para evitar conflictos con el JS -->
+        <a 
+            href="#contacto" 
+            class="mobile-cta-btn block w-full text-center px-5 py-3 rounded-lg text-sm font-bold border border-brand-cyan/30 text-brand-cyan hover:bg-brand-cyan/10 transition-all mt-4 shadow-lg shadow-cyan-400/10"
+        >
+            Agenda una asesoría
+        </a>
     </div>
 </header>
 
 <script>
-    // Usamos una función para poder llamarla tanto en la carga inicial como en las transiciones de Astro
-    function setupMobileMenu() {
-        const btn       = document.getElementById('mobile-menu-btn');
-        const menu      = document.getElementById('mobile-menu');
-        const iconOpen  = document.getElementById('icon-open');
+    const initNavbar = () => {
+        const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link, .mobile-nav-link');
+        const sections = document.querySelectorAll<HTMLElement>('section[id]');
+        
+        // Elementos del menú móvil
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('icon-open');
         const iconClose = document.getElementById('icon-close');
 
-        if (btn && menu && iconOpen && iconClose) {
-            // Removemos listeners previos para evitar que se dupliquen al navegar
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode?.replaceChild(newBtn, btn);
+        // Toggle para abrir y cerrar menú
+        if (menuBtn && mobileMenu) {
+            const toggleMenu = () => {
+                menuBtn.classList.toggle('open');
+                mobileMenu.classList.toggle('hidden');
+            };
 
-            newBtn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-                iconOpen?.classList.toggle('hidden');
-                iconClose?.classList.toggle('hidden');
-                
-                if (!menu.classList.contains('hidden')) {
-                    menu.classList.add('animate-fade-in-down');
-                }
+            menuBtn.onclick = toggleMenu;
+
+            // Cierra el menú móvil y revierte el icono al hacer clic en un enlace
+            document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMenu();
+                    }
+                });
             });
         }
+
+        if (!navLinks.length || !sections.length) return;
+
+        const activeClasses = ['text-white', 'border-brand-cyan', 'font-semibold'];
+        const inactiveClasses = ['text-slate-300', 'border-transparent'];
+
+        const setActive = (id: string) => {
+            navLinks.forEach((link) => {
+                const href = link.getAttribute('href');
+                if (href === `#${id}`) {
+                    link.classList.add(...activeClasses);
+                    link.classList.remove(...inactiveClasses);
+                } else {
+                    link.classList.remove(...activeClasses);
+                    link.classList.add(...inactiveClasses);
+                }
+            });
+        };
+
+        navLinks.forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                if (!targetId || targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    setActive(targetId.replace('#', ''));
+                }
+            });
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -65% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    if (id) setActive(id);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach((section) => observer.observe(section));
+    };
+
+    document.addEventListener('DOMContentLoaded', initNavbar);
+    document.addEventListener('astro:page-load', initNavbar);
+</script>
+
+<style>
+    #menu-btn.open .bar-top {
+        transform: translateY(7px) rotate(45deg);
     }
 
-    // Ejecutar en la carga normal de la página
-    setupMobileMenu();
+    #menu-btn.open .bar-mid {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
 
-    // Ejecutar cuando Astro View Transitions actualiza la página
-    document.addEventListener('astro:page-load', setupMobileMenu);
-</script>
+    #menu-btn.open .bar-bot {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+</style>
