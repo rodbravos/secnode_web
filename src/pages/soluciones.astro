@@ -1,59 +1,239 @@
 ---
 import { Icon } from "astro-icon/components";
 import { SOLUCIONES_DATA } from "@globals/soluciones";
+
+// Cálculo dinámico según la cantidad de elementos en el arreglo
+const totalSoluciones = SOLUCIONES_DATA.length;
+const esPar = totalSoluciones % 2 === 0;
+
+// Definición de columnas y ancho máximo según paridad para evitar que 2 columnas se estiren demasiado
+const gridConfig = esPar 
+    ? "md:grid-cols-2" 
+    : "md:grid-cols-3";
 ---
 
-<section id="soluciones" class="py-24 relative bg-[linear-gradient(to_right,rgba(0,229,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,229,255,0.12)_1px,transparent_1px)] bg-size-[32px_32px]">
+<section id="soluciones" class="py-24 md:py-32 relative overflow-hidden bg-[linear-gradient(to_right,rgba(0,229,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,229,255,0.06)_1px,transparent_1px)] bg-size-[24px_24px]">
     
-    <!-- Resplandor central -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,255,0.04)_0%,transparent_70%)] pointer-events-none z-0"></div>
+    <!-- Gradientes de desvanecimiento -->
+    <div class="absolute inset-0 bg-linear-to-b from-brand-dark via-transparent to-brand-dark pointer-events-none z-0"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-orange-500/10 blur-[160px] rounded-full pointer-events-none z-0"></div>
 
-    <!-- Gradiente de difuminado top/bottom -->
-    <div class="absolute inset-0 bg-linear-to-b from-[#0b1120] via-transparent to-[#0b1120] pointer-events-none z-0"></div>
-    
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         
         <!-- Encabezado -->
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-xs font-semibold tracking-wide uppercase mb-4">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-xs font-semibold tracking-wide uppercase mb-4 shadow-sm shadow-orange-500/10">
                 <span class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
                 Enfoque de Negocio
             </div>
-            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Soluciones integrales para desafíos complejos
+            <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                Soluciones integrales para <span class="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-amber-300">desafíos complejos</span>
             </h2>
-            <p class="text-slate-300 text-base mt-4 italic">
-                Diseñamos arquitecturas y servicios alineados directamente a los objetivos de continuidad y crecimiento de tu empresa.
+            <p class="text-slate-300 text-sm sm:text-base mt-4 leading-relaxed">
+                Diseñamos arquitecturas y servicios alineados directamente a los objetivos de continuidad, seguridad y crecimiento de tu empresa.
             </p>
         </div>
 
-        <!-- Grid de Soluciones -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Grid Inteligente Adaptativo -->
+        <div class={`grid grid-cols-1 ${gridConfig} max-w-7xl gap-8 mx-auto`}>
             {SOLUCIONES_DATA.map((sol) => (
-                <div class="p-8 rounded-2xl bg-[#0b1120]/80 border border-brand-cyan/20 backdrop-blur-sm hover:border-brand-cyan/60 transition-all flex flex-col justify-between group">
+                <div 
+                    data-solucion-trigger={JSON.stringify(sol)}
+                    class="open-sol-modal-btn group relative p-8 rounded-3xl bg-brand-surface/60 border border-brand-border/70 hover:border-orange-500/50 backdrop-blur-md transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 flex flex-col justify-between overflow-hidden cursor-pointer h-full"
+                >
+                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-orange-500/10 blur-2xl rounded-full group-hover:bg-orange-500/25 transition-all duration-500 pointer-events-none"></div>
+
                     <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-mono text-brand-cyan uppercase tracking-wider">{sol.tag}</span>
-                            <div class="w-10 h-10 rounded-lg bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center text-brand-cyan group-hover:scale-110 transition-transform">
-                                <Icon name={sol.icon} class="w-5 h-5" />
+                        <!-- Header Card -->
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-xs font-mono font-semibold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-lg uppercase tracking-wider">
+                                {sol.tag}
+                            </span>
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-500/5 border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:scale-105 group-hover:border-orange-500/60 transition-all">
+                                <Icon name={sol.icon} class="w-6 h-6" />
                             </div>
                         </div>
 
-                        <h3 class="text-xl font-bold text-white mb-3">{sol.title}</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">{sol.description}</p>
+                        <!-- Título y Descripción -->
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">
+                            {sol.title}
+                        </h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            {sol.description}
+                        </p>
                     </div>
 
-                    <ul class="border-t border-white/10 pt-4 space-y-2">
-                        {sol.features.map((feat) => (
-                            <li class="text-xs text-slate-300 flex items-center gap-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
-                                {feat}
-                            </li>
-                        ))}
-                    </ul>
+                    <div class="mt-auto">
+                        <!-- Métrica KPI -->
+                        <div class="p-4 rounded-2xl bg-brand-dark/80 border border-brand-border/60 flex items-center justify-between mb-6">
+                            <div>
+                                <span class="block text-2xl font-extrabold text-white font-mono">{sol.metric}</span>
+                                <span class="text-[10px] font-medium text-slate-400 uppercase tracking-wider">{sol.metricLabel}</span>
+                            </div>
+                            <Icon name="chart-icon" class="w-6 h-6 text-orange-400/80 shrink-0" />
+                        </div>
+
+                        <!-- Footer Card -->
+                        <div class="flex items-center justify-between pt-4 border-t border-brand-border/40">
+                            <span class="inline-flex items-center gap-2 text-xs font-bold text-orange-400 group-hover:text-white transition-colors">
+                                Ver propuesta completa
+                                <Icon name="arrow-right-icon" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            </span>
+
+                            <span class="text-[10px] font-mono px-2.5 py-1 rounded-md bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                                {sol.features.length} alcances
+                            </span>
+                        </div>
+                    </div>
                 </div>
             ))}
         </div>
 
     </div>
+
+    <!-- MODAL DE SOLUCIÓN -->
+    <div id="solucion-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md transition-opacity">
+        <div class="relative w-full max-w-2xl bg-brand-surface/95 border border-orange-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl shadow-orange-500/10 overflow-hidden transform transition-all">
+            
+            <button id="close-sol-modal" class="absolute top-6 right-6 p-2 rounded-full text-slate-400 hover:text-white hover:bg-brand-dark/80 transition-all cursor-pointer">
+                <Icon name="close-icon" class="w-6 h-6" />
+            </button>
+
+            <!-- Modal Header -->
+            <div class="flex items-center gap-4 mb-6">
+                <div id="sol-modal-icon-container" class="w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400 shrink-0">
+                </div>
+                <div>
+                    <span id="sol-modal-tag" class="text-xs font-mono font-semibold text-orange-400 uppercase tracking-wider"></span>
+                    <h3 id="sol-modal-title" class="text-2xl font-bold text-white"></h3>
+                </div>
+            </div>
+
+            <p id="sol-modal-description" class="text-slate-300 text-sm leading-relaxed mb-6"></p>
+
+            <!-- KPI highlight dentro del modal -->
+            <div class="p-4 rounded-2xl bg-brand-dark/90 border border-orange-500/30 flex items-center justify-between mb-6">
+                <div>
+                    <span id="sol-modal-metric" class="block text-3xl font-extrabold text-white font-mono"></span>
+                    <span id="sol-modal-metric-label" class="text-xs font-medium text-slate-400 uppercase tracking-wider"></span>
+                </div>
+                <div class="px-3 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-mono">
+                    Impacto Garantizado
+                </div>
+            </div>
+
+            <!-- Perfil Ideal -->
+            <div id="sol-modal-ideal-container" class="mb-6 hidden">
+                <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-2">Perfil de Aplicación Ideal</span>
+                <div class="p-3 rounded-xl bg-orange-500/5 border border-orange-500/20 text-xs text-orange-300 font-medium">
+                    🎯 <span id="sol-modal-ideal"></span>
+                </div>
+            </div>
+
+            <!-- Lista de Alcances -->
+            <div class="mb-8">
+                <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Alcances y Entregables Incluidos</h4>
+                <ul id="sol-modal-features" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                </ul>
+            </div>
+
+            <!-- Acciones -->
+            <div class="flex flex-col sm:flex-row items-center gap-4 border-t border-brand-border/40 pt-6">
+                <a 
+                    id="sol-modal-cta"
+                    href="#contacto" 
+                    class="w-full sm:w-auto flex-1 py-3.5 px-6 rounded-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-400 hover:to-amber-300 text-slate-950 text-center text-sm transition-all shadow-lg shadow-orange-500/20 cursor-pointer"
+                >
+                    Consultar esta Solución
+                </a>
+                <button id="close-sol-modal-secondary" type="button" class="w-full sm:w-auto py-3.5 px-6 rounded-xl font-semibold text-slate-300 hover:text-white border border-brand-border/80 hover:bg-brand-dark/60 text-sm transition-all cursor-pointer">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script>
+    const setupSolucionesModal = () => {
+        const modal = document.getElementById('solucion-modal');
+        const closeModalBtn = document.getElementById('close-sol-modal');
+        const closeModalSecondary = document.getElementById('close-sol-modal-secondary');
+        const triggerBtns = document.querySelectorAll<HTMLElement>('.open-sol-modal-btn');
+
+        const modalTag = document.getElementById('sol-modal-tag');
+        const modalTitle = document.getElementById('sol-modal-title');
+        const modalDescription = document.getElementById('sol-modal-description');
+        const modalMetric = document.getElementById('sol-modal-metric');
+        const modalMetricLabel = document.getElementById('sol-modal-metric-label');
+        const modalIdealContainer = document.getElementById('sol-modal-ideal-container');
+        const modalIdeal = document.getElementById('sol-modal-ideal');
+        const modalFeatures = document.getElementById('sol-modal-features');
+        const modalIconContainer = document.getElementById('sol-modal-icon-container');
+        const modalCta = document.getElementById('sol-modal-cta');
+
+        if (!modal) return;
+
+        const openModal = (data: any) => {
+            if (modalTag) modalTag.textContent = data.tag;
+            if (modalTitle) modalTitle.textContent = data.title;
+            if (modalDescription) modalDescription.textContent = data.description;
+            if (modalMetric) modalMetric.textContent = data.metric;
+            if (modalMetricLabel) modalMetricLabel.textContent = data.metricLabel;
+            
+            if (data.idealFor && modalIdeal && modalIdealContainer) {
+                modalIdeal.textContent = data.idealFor;
+                modalIdealContainer.classList.remove('hidden');
+            } else if (modalIdealContainer) {
+                modalIdealContainer.classList.add('hidden');
+            }
+
+            if (modalIconContainer) {
+                modalIconContainer.innerHTML = `<svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`;
+            }
+
+            if (modalFeatures) {
+                modalFeatures.innerHTML = data.features.map((feature: string) => `
+                    <li class="flex items-start gap-2.5 p-3 rounded-xl bg-brand-dark/60 border border-brand-border/50 text-xs text-slate-200">
+                        <span class="w-2 h-2 rounded-full bg-orange-400 mt-1 shrink-0"></span>
+                        <span>${feature}</span>
+                    </li>
+                `).join('');
+            }
+
+            if (modalCta) {
+                modalCta.onclick = () => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                };
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        const closeModal = () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        triggerBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const dataRaw = btn.getAttribute('data-solucion-trigger');
+                if (dataRaw) {
+                    openModal(JSON.parse(dataRaw));
+                }
+            });
+        });
+
+        closeModalBtn?.addEventListener('click', closeModal);
+        closeModalSecondary?.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', setupSolucionesModal);
+    document.addEventListener('astro:page-load', setupSolucionesModal);
+</script>

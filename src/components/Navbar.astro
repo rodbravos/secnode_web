@@ -83,16 +83,14 @@ const links = [
 
 <script>
     const initNavbar = () => {
-        const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link, .mobile-nav-link');
+        // Seleccionamos solo los enlaces de navegación directa (sin incluir el botón CTA)
+        const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
         const sections = document.querySelectorAll<HTMLElement>('section[id]');
         
-        // Elementos del menú móvil
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const iconOpen = document.getElementById('icon-open');
-        const iconClose = document.getElementById('icon-close');
 
-        // Toggle para abrir y cerrar menú
+        // Toggle Menú Móvil
         if (menuBtn && mobileMenu) {
             const toggleMenu = () => {
                 menuBtn.classList.toggle('open');
@@ -101,8 +99,8 @@ const links = [
 
             menuBtn.onclick = toggleMenu;
 
-            // Cierra el menú móvil y revierte el icono al hacer clic en un enlace
-            document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+            // Cierra el menú al hacer clic en cualquier enlace o botón dentro del menú móvil
+            mobileMenu.querySelectorAll('a').forEach((link) => {
                 link.addEventListener('click', () => {
                     if (!mobileMenu.classList.contains('hidden')) {
                         toggleMenu();
