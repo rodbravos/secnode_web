@@ -12,10 +12,16 @@ const gridConfig = esPar
     : "md:grid-cols-3";
 ---
 
-<section id="soluciones" class="py-24 md:py-32 relative overflow-hidden bg-[linear-gradient(to_right,rgba(0,229,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,229,255,0.06)_1px,transparent_1px)] bg-size-[24px_24px]">
+<section id="soluciones" class="py-24 md:py-32 relative overflow-hidden bg-[#0b1120]">
     
-    <!-- Gradientes de desvanecimiento -->
-    <div class="absolute inset-0 bg-linear-to-b from-brand-dark via-transparent to-brand-dark pointer-events-none z-0"></div>
+    <!-- Patrón de cuadrícula -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,229,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,229,255,0.05)_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none z-0"></div>
+
+    <!-- Máscaras de integración superior e inferior para borrar el corte -->
+    <div class="absolute top-0 left-0 right-0 h-32 bg-linear-to-b from-[#0b1120] to-transparent pointer-events-none z-1"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-[#0b1120] to-transparent pointer-events-none z-1"></div>
+
+    <!-- Glow ambarino ambiental en el centro -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-orange-500/10 blur-[160px] rounded-full pointer-events-none z-0"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
@@ -49,7 +55,7 @@ const gridConfig = esPar
                             <span class="text-xs font-mono font-semibold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-lg uppercase tracking-wider">
                                 {sol.tag}
                             </span>
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-500/5 border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:scale-105 group-hover:border-orange-500/60 transition-all">
+                            <div class="w-12 h-12 rounded-2xl bg-linear-to-br from-orange-500/20 to-orange-500/5 border border-orange-500/30 flex items-center justify-center text-orange-400 group-hover:scale-105 group-hover:border-orange-500/60 transition-all">
                                 <Icon name={sol.icon} class="w-6 h-6" />
                             </div>
                         </div>
@@ -142,7 +148,7 @@ const gridConfig = esPar
                 <a 
                     id="sol-modal-cta"
                     href="#contacto" 
-                    class="w-full sm:w-auto flex-1 py-3.5 px-6 rounded-xl font-bold bg-gradient-to-r from-orange-500 to-amber-400 hover:from-orange-400 hover:to-amber-300 text-slate-950 text-center text-sm transition-all shadow-lg shadow-orange-500/20 cursor-pointer"
+                    class="w-full sm:w-auto flex-1 py-3.5 px-6 rounded-xl font-bold bg-linear-to-r from-orange-500 to-amber-400 hover:from-orange-400 hover:to-amber-300 text-slate-950 text-center text-sm transition-all shadow-lg shadow-orange-500/20 cursor-pointer"
                 >
                     Consultar esta Solución
                 </a>
