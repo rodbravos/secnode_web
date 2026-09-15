@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="308" height="292" viewBox="0 0 308 292" fill="none">
+<defs>
+<linearGradient id="logoGradient" x1="60" y1="250" x2="280" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1677D3"/><stop offset="0.5" stop-color="#20A9E8"/><stop offset="1" stop-color="#5DE7E0"/></linearGradient>
+</defs>
+<g fill="url(#logoGradient)" fill-rule="evenodd" clip-rule="evenodd">
+<path d="M 213,63 L 184,52 L 156,35 L 141,46 L 115,59 L 86,67 L 58,70 L 56,88 L 57,136 L 65,174 L 73,191 L 75,193 L 78,193 L 87,187 L 78,163 L 73,141 L 71,102 L 72,88 L 75,84 L 101,80 L 123,73 L 158,55 L 171,63 L 196,74 L 198,77 L 199,94 L 213,82 Z"/>
+<path d="M 259,123 L 246,109 L 244,110 L 241,146 L 236,167 L 231,180 L 220,200 L 210,213 L 196,226 L 180,238 L 160,248 L 150,246 L 133,237 L 117,223 L 117,212 L 114,213 L 104,223 L 104,232 L 122,248 L 156,265 L 168,262 L 194,248 L 208,237 L 225,220 L 238,201 L 246,185 L 253,165 L 258,141 Z"/>
+<path d="M 106,107 L 103,113 L 102,130 L 103,173 L 117,163 L 117,124 L 121,122 L 188,192 L 192,194 L 203,194 L 208,191 L 212,183 L 212,132 L 210,132 L 197,143 L 197,175 L 194,176 L 124,103 L 112,102 Z"/>
+<path d="M 276,54 L 227,60 L 227,63 L 236,73 L 236,76 L 168,134 L 178,144 L 180,144 L 247,88 L 249,88 L 259,101 L 262,102 Z"/>
+<path d="M 149,166 L 141,158 L 139,158 L 77,210 L 75,210 L 66,201 L 56,235 L 90,235 L 90,232 L 86,227 L 86,223 L 150,170 Z"/>
+</g>
+</svg>
